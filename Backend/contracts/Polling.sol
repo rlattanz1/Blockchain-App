@@ -10,17 +10,17 @@ contract Polling {
 
 
 
-    struct Poll {
-        uint id;
-        string name;
-        Option[] options;
-    }
+    // struct Poll {
+    //     uint id;
+    //     string name;
+    //     Option[] options;
+    // }
 
     // storing the option id as a uint variable
     uint public optionId;
 
     // storing the poll id as a uint variable
-    uint public pollId;
+    // uint public pollId;
 
 
     // creating an object of key value pairs for the Option structs
@@ -29,22 +29,24 @@ contract Polling {
     Option[] public options;    // creating an array of the Option structs
 
     // creating an object of key value pairs for the Option structs
-    mapping(uint => Poll) public polls;
+    // mapping(uint => Poll) public polls;
 
     function addOption (string memory _name) private {
         optionId++;
+
+        // Option storage option = options[options.length - 1]
+
         options.push(Option(optionId, _name, 0));
     }
-
-    function createPoll (string[] memory _options, string memory _name) public { //need a calldata/memory call in front of _options
+    // If we use Poll struct then we need an additional argument of "string memory _name" to name the Poll instance
+    function createPoll (string[] memory _options) public { //need a calldata/memory call in front of _options
         require( _options.length >= 2 && _options.length <= 10, "number of options must be between 2 and 10");
-        pollId++;
+        // pollId++;
 
         for (uint i = 0; i < _options.length; i++) {
             addOption(_options[i]);
         }
-
-       polls[pollId] = Poll(pollId, _name, options);
+    //    polls[pollId] = Poll(pollId, _name, options);
 
     }
 
