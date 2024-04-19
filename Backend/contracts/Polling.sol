@@ -40,7 +40,7 @@ contract Polling {
 
     mapping(address => Poll[]) private userPolls;
 
-    mapping(uint => Group) private pollGroup
+    mapping(uint => Group) private pollGroup;
 
 
     function createPoll (string[] memory _options, address[] memory _group, string memory _name) public { //need a calldata/memory call in front of _options
@@ -56,7 +56,15 @@ contract Polling {
         polls[pollId].id = pollId;
         polls[pollId].name = _name;
         userPolls[msg.sender].push(polls[pollId]);
-        
+
+    }
+
+    function getPolls() public view returns (Poll[] memory)  {
+        return userPolls[msg.sender];
+    }
+
+    function getOptions() public view returns (Option[] memory) {
+        return options;
     }
 
 
