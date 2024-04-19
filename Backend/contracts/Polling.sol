@@ -31,12 +31,12 @@ contract Polling {
     // creating an object of key value pairs for the Option structs
     mapping(uint => Poll) public polls;
 
-    function addOption (string _name) private {
+    function addOption (string memory _name) private {
         optionId++;
         options.push(Option(optionId, _name, 0));
     }
 
-    function createPoll (string[] memory _options, string memory _name) public returns (Poll memory) { //need a calldata/memory call in front of _options
+    function createPoll (string[] memory _options, string memory _name) public { //need a calldata/memory call in front of _options
         require( _options.length >= 2 && _options.length <= 10, "number of options must be between 2 and 10");
         pollId++;
 
@@ -44,7 +44,8 @@ contract Polling {
             addOption(_options[i]);
         }
 
-    `   polls[pollId] = Poll(pollId, _name, _options);
+       polls[pollId] = Poll(pollId, _name, options);
+
     }
 
 
