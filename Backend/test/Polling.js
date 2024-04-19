@@ -18,7 +18,7 @@ describe("Voting contract", function () {
       await poll.createPoll([option1, option2, option3]);
 
       const polled = await poll.getOptions();
-      console.log(polled)
+      // console.log(polled)
 
       expect(polled.length).to.equal(3)
     });

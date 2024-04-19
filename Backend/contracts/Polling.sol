@@ -50,8 +50,22 @@ contract Polling {
 
     }
 
+
+    // Function to return the options currently created
     function getOptions() public view returns (Option[] memory) {
         return options;
+    }
+
+    mapping(uint256 => mapping(address => bool)) private hasVoted;
+
+    function vote(uint256 _optionId) public {
+        require(_optionId < options.length, "Invalid option ID");
+        require(
+            hasVoted[msg.sender] != true,
+            "You have already voted for this proposal"
+        );
+        options[_optionId].count++;
+        hasVoted[msg.sender] = true;
     }
 
 
