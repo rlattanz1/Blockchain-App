@@ -50,5 +50,9 @@ contract Polling {
 
     }
 
+    function getOptions() public view returns (Option[] memory) {
+        return options;
+    }
+
 
 }
