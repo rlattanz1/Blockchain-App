@@ -63,9 +63,7 @@ contract Polling {
         userPolls[msg.sender].push(polls[pollId]);
     }
 
-    function Vote () public {
-        
-    }
+    
 
 
 }
