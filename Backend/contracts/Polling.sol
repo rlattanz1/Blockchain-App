@@ -8,40 +8,20 @@ contract Polling {
         uint count;
     }
 
-
-    struct Group {
-        uint id;
-        string name;
-        address[] members;
-    }
-
-
     struct Poll {
         uint id;
         string name;
         Option[] options;
-        Group voters;
+        address[] voters;
     }
-
-    // storing the option id as a uint variable
-    // uint public optionId;
 
     // storing the poll id as a uint variable
     uint public pollId;
-
-
-    // creating an object of key value pairs for the Option structs
-    // mapping(uint => Option) public options;
-
-    // Option[] public options;    // creating an array of the Option structs
-
 
     // creating an object of key value pairs for the Option structs
     mapping(uint => Poll) public polls;
 
     mapping(address => Poll[]) private userPolls;
-
-    mapping(uint => Group) private pollGroup;
 
 
     function createPoll (string[] memory _options, address[] memory _group, string memory _name) public { //need a calldata/memory call in front of _options
@@ -56,28 +36,34 @@ contract Polling {
 
         polls[pollId].id = pollId;
         polls[pollId].name = _name;
+        polls[pollId].voters = _group;
+        polls[pollId].voters.push(msg.sender);
         userPolls[msg.sender].push(polls[pollId]);
 
     }
+
+    function exists1(address sender, address[] memory group) public view returns (bool) {
+        for (uint i = 0; i < group.length; i++) {
+            if (group[i] == sender) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     mapping(uint256 => mapping(address => bool)) public pollVoters;
 
     function Vote(uint256 _pollId, uint256 _optionId) public {
         require(_pollId > 0 && _pollId <= pollId, "Invalid poll");
         require(!pollVoters[_pollId][msg.sender], "You have already voted");
-        require(_optionId >= 0 && _optionId <= polls[_pollId].options.length, "Invalid option");
+        require(_optionId >= 0 && _optionId < polls[_pollId].options.length, "Invalid option");
+        require(exists1(msg.sender, polls[_pollId].voters), "You are not allowed to vote in this poll");
 
         polls[_pollId].options[_optionId].count++;
 
         pollVoters[_pollId][msg.sender] = true;
 
-    }
-
-    function getPollVotes(uint256 _pollId) public view returns (uint[] memory) {
-        uint[] memory votes = new uint[](polls[_pollId].options.length);
-        for (uint i = 0; i < polls[_pollId].options.length; i++) {
-            votes[i] = polls[_pollId].options[i].count;
-        }
-        return votes;
     }
 
     function getPolls() public view returns (Poll[] memory)  {

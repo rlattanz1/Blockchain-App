@@ -90,5 +90,4 @@ describe("Voting contract", function () {
     })
   });
 
-
 });
