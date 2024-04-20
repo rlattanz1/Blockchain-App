@@ -33,7 +33,7 @@ contract Polling {
     // creating an object of key value pairs for the Option structs
     // mapping(uint => Option) public options;
 
-    Option[] public options;    // creating an array of the Option structs
+    // Option[] public options;    // creating an array of the Option structs
 
     // creating an object of key value pairs for the Option structs
     mapping(uint => Poll) public polls;
@@ -64,7 +64,7 @@ contract Polling {
     }
 
     function getOptions() public view returns (Option[] memory) {
-        return options;
+        return polls[pollId].options;
     }
 
 
