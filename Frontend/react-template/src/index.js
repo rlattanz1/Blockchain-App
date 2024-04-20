@@ -7,14 +7,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // root reducer containing all our other reducers
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+function Root() {
+  return (
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
-);
+  )
+};
+
+const renderApplication = () => {
+  ReactDOM.render(
+      <React.StrictMode>
+        <Root />
+      </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+
+renderApplication();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

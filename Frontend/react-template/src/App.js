@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {loaded ? (
+      {{loaded} ? (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/polls/:id" element={<Vote />} />
