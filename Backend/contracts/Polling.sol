@@ -16,7 +16,7 @@ contract Polling {
     }
 
     // storing the poll id as a uint variable
-    uint public pollId;
+    // uint public pollId;
 
     // creating an object of key value pairs for the Option structs
     mapping(uint => Poll) public polls;
