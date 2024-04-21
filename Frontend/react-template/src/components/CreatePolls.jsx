@@ -3,9 +3,9 @@ import { createPoll } from '../Blockchain.services'
 import { useNavigate } from 'react-router-dom'
 
 const CreatePoll = () => {
-  const [name, setName] = useState('')
-  const [group, setGroup] = useState([])
-  const [options, setOptions] = useState([])
+  const [_name, setName] = useState('')
+  const [_group, setGroup] = useState([])
+  const [_options, setOptions] = useState([])
   const [voter, setVoter] = useState([])
   const [option, setOption] = useState('')
   const navigate = useNavigate()
@@ -14,10 +14,10 @@ const CreatePoll = () => {
     e.preventDefault()
     console.log("HITTING THE SUBMIT")
 
-    if (!name || !group.length || options.length < 2) return
+    if (!_name || !_group.length || _options.length < 2) return
 
     try {
-        await createPoll({name, group, options});
+        await createPoll({_options, _group, _name});
     } catch(err) {
         console.log(err)
     }
@@ -36,14 +36,14 @@ const CreatePoll = () => {
   }
 
   const addVoter = () => {
-    group.push(voter)
-    setGroup(group)
+    _group.push(voter)
+    setGroup(_group)
     setVoter('')
   }
 
   const addOption = () => {
-    options.push(option)
-    setOptions(options)
+    _options.push(option)
+    setOptions(_options)
     setOption('')
   }
 
@@ -65,7 +65,7 @@ const CreatePoll = () => {
                 name="name"
                 placeholder="Name"
                 onChange={(e) => setName(e.target.value)}
-                value={name}
+                value={_name}
                 required
                 />
             </div>

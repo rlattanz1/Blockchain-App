@@ -24,7 +24,7 @@ contract Polling {
     mapping(address => Poll[]) private userPolls;
 
 
-    function createPoll (string[] memory _options, string[] memory _group, string memory _name) public { //need a calldata/memory call in front of _options
+    function createPoll (string[] memory _options, address[] memory _group, string memory _name) public { //need a calldata/memory call in front of _options
         require( _options.length >= 2 && _options.length <= 10, "number of options must be between 2 and 10");
         require( _group.length >= 2, "must have at least 2 people for a poll");
 
@@ -34,13 +34,9 @@ contract Polling {
             polls[pollId].options.push(Option(i + 1, _options[i], 0));
         }
 
-        for(uint i = 0; i < _group.length; i++) {
-            polls[pollId].voters.push(address(uint160(uint(keccak256(abi.encodePacked(_group[i]))))));
-        }
-
-
         polls[pollId].id = pollId;
         polls[pollId].name = _name;
+        polls[pollId].voters = _group;
         polls[pollId].voters.push(msg.sender);
         userPolls[msg.sender].push(polls[pollId]);
 

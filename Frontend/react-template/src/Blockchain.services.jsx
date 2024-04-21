@@ -4,7 +4,7 @@ import { getGlobalState, setGlobalState } from './store'
 const { ethers } = require("ethers");
 const { ethereum } = window
 const contractAddress = address.address
-const ABI = abi['abi'];
+const ABI = abi.abi;
 
 const getEtheriumContract = async () => {
     const connectedAccount = getGlobalState('connectedAccount')
@@ -62,13 +62,13 @@ const isWallectConnected = async () => {
       if (!ethereum) return alert('Please install Metamask')
       const connectedAccount = getGlobalState('connectedAccount')
       const contract = await getEtheriumContract()
-      console.log("ERROR RIGHT BEFORE CREATING POLL")
+      // console.log(contract)
+      // console.log("ERROR RIGHT BEFORE CREATING POLL")
       await contract.createPoll( _options, _group, _name, {
         from: connectedAccount,
       })
-      console.log("RIGHT BEFORE")
+      // console.log("RIGHT BEFORE")
       await getPolls()
-      console.log("GOT PAST GOT POLLS")
     } catch (error) {
       console.log("HIT ERROR")
       reportError(error)
@@ -78,7 +78,7 @@ const isWallectConnected = async () => {
   const getUserPolls = async () => {
     try {
       if (!ethereum) return alert('Please install Metamask')
-      const contract = getEtheriumContract()
+      const contract = await getEtheriumContract()
       const userPolls = await contract.getUserPolls()
       setGlobalState('userPolls', userPolls)
     } catch (error) {
@@ -89,8 +89,10 @@ const isWallectConnected = async () => {
   const getPolls = async () => {
     try {
       if (!ethereum) return alert('Please install Metamask')
+      console.log("Inside already")
       const contract = await getEtheriumContract()
       const polls = await contract.getPolls()
+      console.log(polls)
       setGlobalState('polls', polls)
     } catch (error) {
       console.log("HIT ERROR IN GETPOLLS")
