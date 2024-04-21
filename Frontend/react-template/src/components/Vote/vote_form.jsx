@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getPoll, getOptions, vote } from '../Blockchain.services'
-import { useGlobalState, setGlobalState } from '../store'
+import { getPoll, getOptions, vote } from '../../Blockchain.services'
+import { useGlobalState, setGlobalState } from '../../store'
 
 
 const Vote = () => {
