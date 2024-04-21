@@ -4,7 +4,7 @@ import './App.css';
 import { getPolls, isWallectConnected } from './Blockchain.services';
 import Header from './components/Header';
 import Home from './components/Home';
-import Vote from './components/Vote/vote_form';
+import Vote from './components/Vote/vote_form.jsx';
 
 
 

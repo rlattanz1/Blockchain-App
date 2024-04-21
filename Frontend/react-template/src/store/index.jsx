@@ -5,6 +5,7 @@ const { getGlobalState, useGlobalState, setGlobalState } = createGlobalState({
     createPoll: null,
     contract: null,
     userPolls: [],
+    // pollVoters: [],
     polls: [],
     poll: null,
     options: [],

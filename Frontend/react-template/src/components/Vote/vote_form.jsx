@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getPoll, getOptions, vote } from '../../Blockchain.services'
+import { getPoll, getOptions, vote, getPollVoters } from '../../Blockchain.services'
 import { useGlobalState, setGlobalState } from '../../store'
 
 
@@ -10,15 +10,24 @@ const Vote = () => {
     const [poll] = useGlobalState('poll')
     const [connectedAccount] = useGlobalState('connectedAccount')
     const [options] = useGlobalState('options')
+    // const [pollVoters] = useGlobalState('pollVoters')
     const [voters] = useGlobalState('voters')
 
     useEffect(async () => {
         await getPoll(id)
         await getOptions(id)
+        // await getPollVoters(id)
     }, [])
 
 
     const handleVote = (e) => {
+        e.preventDefault();
+
+        // if (!pollVoters[connectedAccount] && voters.includes(connectedAccount)) {
+        //     poll.count++
+        // } else {
+        //     alert('already voted')
+        // }
 
     }
 
@@ -39,7 +48,7 @@ const Vote = () => {
                                     <li>{option.name}</li>
                                     <li>{option.count}</li>
                                     <li>
-                                        <button className='submit-vote-button'>Vote</button>
+                                        <button className='submit-vote-button' onClick={e => handleVote(e)}>Vote</button>
                                     </li>
                                 </ul>
                             </div>

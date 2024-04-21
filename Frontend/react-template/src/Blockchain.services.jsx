@@ -71,6 +71,17 @@ const isWallectConnected = async () => {
     }
   }
 
+  // const getPollVoters = async () => {
+  //   try {
+  //     if (!ethereum) return alert('Please install Metamask')
+  //     const contract = getEtheriumContract()
+  //     const pollVoters = await contract.getPollVoters()
+  //     setGlobalState('pollVoters', pollVoters)
+  //   } catch (error) {
+  //     reportError(error)
+  //   }
+  // }
+
   const getUserPolls = async () => {
     try {
       if (!ethereum) return alert('Please install Metamask')
@@ -137,6 +148,7 @@ const isWallectConnected = async () => {
     isWallectConnected,
     connectWallet,
     createPoll,
+    // getPollVoters,
     getUserPolls,
     getPolls,
     getPoll,
