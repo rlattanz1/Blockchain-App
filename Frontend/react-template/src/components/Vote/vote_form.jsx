@@ -39,7 +39,7 @@ const Vote = () => {
                                     <li>{option.name}</li>
                                     <li>{option.count}</li>
                                     <li>
-                                        <button className='submit-vote-button' onClick={() => handleVote()}>Vote</button>
+                                        <button className='submit-vote-button'>Vote</button>
                                     </li>
                                 </ul>
                             </div>
