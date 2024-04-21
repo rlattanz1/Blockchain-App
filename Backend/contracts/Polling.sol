@@ -66,13 +66,23 @@ contract Polling {
 
     }
 
-    function getPolls() public view returns (Poll[] memory)  {
+    function getUserPolls() public view returns (Poll[] memory)  {
         return userPolls[msg.sender];
+    }
+
+    function getPolls() public view returns (Poll[] memory)  {
+        Poll[] memory result
+        for (uint i = 1; i <= pollId; i++) {
+            result.push(polls[i])
+        }
+        return result;
+    }
+
+    function getPoll(uint _pollId) public view returns (Poll[] memory)  {
+        return polls[_pollId];
     }
 
     function getOptions(uint _pollId) public view returns (Option[] memory) {
         return polls[_pollId].options;
     }
-
-
 }
