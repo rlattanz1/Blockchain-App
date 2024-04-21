@@ -71,14 +71,21 @@ contract Polling {
     }
 
     function getPolls() public view returns (Poll[] memory)  {
-        Poll[] memory result
+
+        uint count = 0;
+
+        for(uint i = 1; i <= pollId; i++) {
+            count++;
+        }
+
+        Poll[] memory result = new Poll[](count);
         for (uint i = 1; i <= pollId; i++) {
-            result.push(polls[i])
+            result[i] = polls[i];
         }
         return result;
     }
 
-    function getPoll(uint _pollId) public view returns (Poll[] memory)  {
+    function getPoll(uint _pollId) public view returns (Poll memory)  {
         return polls[_pollId];
     }
 
