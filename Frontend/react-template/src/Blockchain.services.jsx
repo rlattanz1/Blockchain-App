@@ -1,10 +1,9 @@
 import abi from './Polling.json'
-// import address from './contractAddress.json'
+import address from './contractAddress.json'
 import { getGlobalState, setGlobalState } from './store'
-import { ethers } from 'ethers'
-
+const { ethers } = require("ethers");
 const { ethereum } = window
-// const contractAddress = address
+const contractAddress = address
 const ABI = abi['abi'];
 
 const getEtheriumContract = () => {
@@ -99,7 +98,7 @@ const isWallectConnected = async () => {
       if (!ethereum) return alert('Please install Metamask')
       const contract = getEtheriumContract()
       const poll = await contract.getPoll(_pollId)
-      setGlobalState('poll', structuredPolls([poll])[0])
+      setGlobalState('poll', poll)
     } catch (error) {
       reportError(error)
     }
