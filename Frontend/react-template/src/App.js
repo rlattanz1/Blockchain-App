@@ -4,6 +4,7 @@ import './App.css';
 import { getPolls, isWallectConnected } from './Blockchain.services';
 import Header from './components/Header';
 import Home from './components/Home';
+import CreatePoll from './components/CreatePolls';
 
 
 // homepage I think
@@ -30,7 +31,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             {/* <Route path="/polls/:id" element={<Vote />} /> */}
             {/* <Route path="/userPolls/:address" element={<UserPolls />} /> */}
-            {/* <Route path="/polls/:id/createPoll" element={<CreatePolls />} /> */}
+            <Route path="/polls/createPoll" element={<CreatePoll />} />
           </Routes>
       ) : null}
       {/* <Footer /> */}

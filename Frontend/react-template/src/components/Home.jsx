@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <div>
-        <Link to="/" className="font-bold text-2xl">NEW POLL</Link>
+        <Link to="/polls/createPoll" className="font-bold text-2xl">NEW POLL</Link>
         <Polls polls={polls.filter((poll) => !poll.deleted)} />
     </div>
   )

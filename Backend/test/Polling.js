@@ -42,6 +42,7 @@ describe("Voting contract", function () {
 
 
         const polled = await poll.getPolls();
+        // console.log(polled[1])
         expect(polled.length).to.equal(2)
         expect(polled[0].name).to.equal("Poll1")
         expect(polled[1].name).to.equal(title2)

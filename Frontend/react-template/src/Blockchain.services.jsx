@@ -3,15 +3,15 @@ import address from './contractAddress.json'
 import { getGlobalState, setGlobalState } from './store'
 const { ethers } = require("ethers");
 const { ethereum } = window
-const contractAddress = address
+const contractAddress = address.address
 const ABI = abi['abi'];
 
-const getEtheriumContract = () => {
+const getEtheriumContract = async () => {
     const connectedAccount = getGlobalState('connectedAccount')
 
     if (connectedAccount) {
-      const provider = new ethers.providers.Web3Provider(ethereum)
-      const signer = provider.getSigner()
+      const provider = new ethers.BrowserProvider(ethereum)
+      const signer = await provider.getSigner()
       const contract = new ethers.Contract(contractAddress, ABI, signer)
 
       return contract
@@ -61,12 +61,16 @@ const isWallectConnected = async () => {
     try {
       if (!ethereum) return alert('Please install Metamask')
       const connectedAccount = getGlobalState('connectedAccount')
-      const contract = getEtheriumContract()
+      const contract = await getEtheriumContract()
+      console.log("ERROR RIGHT BEFORE CREATING POLL")
       await contract.createPoll( _options, _group, _name, {
         from: connectedAccount,
       })
+      console.log("RIGHT BEFORE")
       await getPolls()
+      console.log("GOT PAST GOT POLLS")
     } catch (error) {
+      console.log("HIT ERROR")
       reportError(error)
     }
   }
@@ -85,10 +89,11 @@ const isWallectConnected = async () => {
   const getPolls = async () => {
     try {
       if (!ethereum) return alert('Please install Metamask')
-      const contract = getEtheriumContract()
+      const contract = await getEtheriumContract()
       const polls = await contract.getPolls()
       setGlobalState('polls', polls)
     } catch (error) {
+      console.log("HIT ERROR IN GETPOLLS")
       reportError(error)
     }
   }
@@ -96,7 +101,7 @@ const isWallectConnected = async () => {
   const getPoll = async (_pollId) => {
     try {
       if (!ethereum) return alert('Please install Metamask')
-      const contract = getEtheriumContract()
+      const contract = await getEtheriumContract()
       const poll = await contract.getPoll(_pollId)
       setGlobalState('poll', poll)
     } catch (error) {
