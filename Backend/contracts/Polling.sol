@@ -31,7 +31,7 @@ contract Polling {
         pollId++;
 
         for (uint i = 0; i < _options.length; i++) {
-            polls[pollId].options.push(Option(i+1, _options[i], 0));
+            polls[pollId].options.push(Option(i, _options[i], 0));
         }
 
         polls[pollId].id = pollId;
@@ -39,6 +39,7 @@ contract Polling {
         polls[pollId].voters = _group;
         polls[pollId].voters.push(msg.sender);
         userPolls[msg.sender].push(polls[pollId]);
+
 
     }
 
@@ -66,19 +67,32 @@ contract Polling {
 
     }
 
+
+
+    // function getPollVoters(uint _pollId) public view returns (pollVoters[] memory)  {
+    //     return pollVoters[_pollId];
+    // }
+
     function getUserPolls() public view returns (Poll[] memory)  {
         return userPolls[msg.sender];
     }
 
     function getPolls() public view returns (Poll[] memory)  {
-        Poll[] memory result
-        for (uint i = 1; i <= pollId; i++) {
-            result.push(polls[i])
+
+        uint count = 0;
+
+        for(uint i = 1; i <= pollId; i++) {
+            count++;
+        }
+
+        Poll[] memory result = new Poll[](count);
+        for (uint i = 0; i < pollId; i++) {
+            result[i] = polls[i + 1];
         }
         return result;
     }
 
-    function getPoll(uint _pollId) public view returns (Poll[] memory)  {
+    function getPoll(uint _pollId) public view returns (Poll memory)  {
         return polls[_pollId];
     }
 
